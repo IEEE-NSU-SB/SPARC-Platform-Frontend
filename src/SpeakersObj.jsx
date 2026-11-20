@@ -260,17 +260,19 @@ const SPEAKERS_CSS = `
 @media (max-width: 720px) {
   .sparc-spk-card {
     grid-template-columns: 1fr;
-    justify-items: center;
+    justify-items: stretch;
   }
 
   .sparc-spk-card__media {
-    width: min(100%, 300px);
-    height: 420px;
+    width: 100%;
+    max-width: none;
+    height: auto;
+    aspect-ratio: 400 / 560;
   }
 
   .sparc-spk-card__body {
     width: 100%;
-    padding: 8px 10px 10px;
+    padding: 4px 8px 10px;
     box-sizing: border-box;
   }
 
@@ -399,7 +401,7 @@ function SpeakerCard({ speaker, dotsRest, dotsHover }) {
   );
 }
 
-export default function SpeakersSection({
+export default function SpeakersObj({
   speakers = {},
   className = '',
   style = {},
