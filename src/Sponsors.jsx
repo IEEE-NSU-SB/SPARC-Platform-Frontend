@@ -1,165 +1,79 @@
-import React from "react";
-import cbl_gram_logo from "./assets/sponser-logo/cbl-gram.png";
-import arrow_logo from "./assets/sponser-logo/arrow.png";
-import star_logo from "./assets/sponser-logo/star.png";
-import FadeIn from "./FadeIn";
+/* Sponsor wall in three tiers. `bg` is each logo's own background colour,
+   so the tile extends the logo without a visible edge. */
 
-const Sponsors = () => {
-  const sponsorData = {
-    platinum: [
-      { id: 1, image: cbl_gram_logo },
-      { id: 2, image: cbl_gram_logo },
-    ],
-    gold: [
-      { id: 1, image: cbl_gram_logo },
-      { id: 2, image: cbl_gram_logo },
-    ],
-    silver: [
-      { id: 1, image: cbl_gram_logo },
-      { id: 2, image: cbl_gram_logo },
-      { id: 3, image: cbl_gram_logo },
-      { id: 4, image: cbl_gram_logo },
-    ],
-    foodPartner: [
-      { id: 1, image: cbl_gram_logo },
-      { id: 2, image: cbl_gram_logo },
-    ],
-    tshirtPartner: [
-      { id: 1, image: cbl_gram_logo },
-      { id: 2, image: cbl_gram_logo },
-    ],
-  };
+const PLATINUM = [
+  { n: 17, bg: '#000', alt: 'Eshaal Properties Ltd., Platinum sponsor' },
+  { n: 18, bg: '#000', alt: 'Platinum sponsor' },
+  { n: 19, bg: '#000', alt: 'Platinum sponsor' },
+];
+const GOLD = [
+  { n: 20, bg: '#000', alt: 'Gold sponsor' },
+  { n: 21, bg: '#000', alt: 'Gold sponsor' },
+];
+const PARTNERS = [
+  { n: 22, bg: '#000', alt: 'Shawarma Damasco, Silver sponsor', label: 'Silver Sponsor', silver: true },
+  { n: 23, bg: '#000', alt: 'SBAC Bank, T-shirt partner', label: 'T-shirt Partner' },
+  { n: 24, bg: '#fff', alt: 'News24, Electronic partner', label: 'Electronic Partner' },
+  { n: 25, bg: '#000', alt: 'Kaler Kantho, Media partner', label: 'Media Partner' },
+  { n: 26, bg: '#000', alt: 'Glimpse, Photography and cinematography partner', label: 'Photography & Cinematography' },
+  { n: 27, bg: '#fff', alt: 'Maroon, PR and promotion partner', label: 'PR & Promotion' },
+  { n: 28, bg: '#fff', alt: 'Billboard partner', label: 'Billboard Partner' },
+  { n: 29, bg: '#000', alt: 'Infogram, Digital media partner', label: 'Digital Media' },
+  { n: 30, bg: '#ffda48', alt: 'Digital media partner', label: 'Digital Media' },
+  { n: 31, bg: '#fff', alt: 'Think Bright, Digital media partner', label: 'Digital Media' },
+  { n: 32, bg: '#f4740b', alt: 'Tezz Feed, Digital media partner', label: 'Digital Media' },
+];
 
+function Plate({ n, bg, alt }) {
   return (
-    <div className="bg-[#091d33] md:px-20 md:pb-30 md:pt-10">
-      <div className="relative max-w-5xl mx-auto md:pb-18 py-8 pl-4 text-center md:text-left">
-        <h2 className="text-white text-2xl md:text-4xl font-semibold">
-          Our Spon<span className="text-[#FF9D00]">sors</span>
-        </h2>
-        <img
-          src={arrow_logo}
-          className="absolute right-173 top-12 md:block hidden"
-          alt=""
-        />
-      </div>
-      {/* moddher div  */}
-      <div className="bg-[#FFFCE6E3] max-w-5xl mx-auto p-8 md:border-2 md:border-dashed rounded-xl">
-        {/* sponser gular parent div  */}
-        <FadeIn>
-          <div className="flex flex-col   md:flex-row  md:gap-25 gap-10 flex-wrap justify-center items-center relative">
-            {/* single div  */}
-            <div className="flex flex-col items-center">
-              <h2 className="text-xl text-[#002855] font-semibold mb-3">
-                Platinum
-              </h2>
-              {/* Image container */}
-              <div className="flex gap-5 flex-wrap justify-center">
-                {sponsorData.platinum.map((item) => (
-                  <img
-                    key={item.id}
-                    src={item.image}
-                    alt=""
-                    className="md:w-16 w-13 h-auto object-cover"
-                  />
-                ))}
-              </div>
-            </div>
-
-            {/* single div  */}
-            <div className="flex flex-col items-center">
-              <h2 className="text-xl text-[#002855] font-semibold mb-3">Gold</h2>
-              {/* Image container */}
-              <div className="flex gap-5 flex-wrap justify-center">
-                {sponsorData.gold.map((item) => (
-                  <img
-                    key={item.id}
-                    src={item.image}
-                    alt=""
-                    className="md:w-16 w-13 h-auto object-cover"
-                  />
-                ))}
-              </div>
-            </div>
-
-            {/* single div  */}
-            <div className="flex flex-col items-center">
-              <h2 className="text-xl text-[#002855] font-semibold mb-3">
-                Silver
-              </h2>
-              {/* Image container */}
-              <div className="flex gap-5 flex-wrap justify-center">
-                {sponsorData.silver.map((item) => (
-                  <img
-                    key={item.id}
-                    src={item.image}
-                    alt=""
-                    className="md:w-16 w-13 h-auto object-cover"
-                  />
-                ))}
-              </div>
-            </div>
-            {/* single div  */}
-            <div className="flex flex-col items-center">
-              <h2 className="text-xl text-[#002855] font-semibold mb-3">
-                Food Partner
-              </h2>
-              {/* Image container */}
-              <div className="flex gap-5 flex-wrap justify-center">
-                {sponsorData.foodPartner.map((item) => (
-                  <img
-                    key={item.id}
-                    src={item.image}
-                    alt=""
-                    className="md:w-16 w-13 h-auto object-cover"
-                  />
-                ))}
-              </div>
-            </div>
-            {/* single div  */}
-            <div className="flex flex-col items-center">
-              <h2 className="text-xl text-[#002855] font-semibold mb-3">
-                T-shirt Partner
-              </h2>
-              {/* Image container */}
-              <div className="flex gap-5 flex-wrap justify-center">
-                {sponsorData.tshirtPartner.map((item) => (
-                  <img
-                    key={item.id}
-                    src={item.image}
-                    alt=""
-                    className="md:w-16 w-13 h-auto object-cover"
-                  />
-                ))}
-              </div>
-            </div>
-            {/* star logo div  */}
-            <div className="absolute -bottom-18 -right-19 md:block hidden">
-              <img
-                src={star_logo}
-                alt=""
-                className="animate-spin-slow"
-                style={{
-                  animation: "spin 8s linear infinite",
-                }}
-              />
-            </div>
-          </div>
-        </FadeIn>
-      </div>
-      <style>
-        {`
-        @keyframes spin {
-          from { transform: rotate(0deg); }
-          to { transform: rotate(360deg); }
-        }
-      `}
-      </style>
-
+    <div className="sp" style={{ '--bg': bg }}>
+      <img src={`/assets/${n}.png`} width="320" height="320" alt={alt} loading="lazy" />
     </div>
-
   );
-};
+}
 
-// just for check 
+function TierLabel({ name, count }) {
+  return (
+    <div className="tier-label" data-reveal>
+      <h3>{name}</h3><span className="tier-rule" /><span className="tier-n">{String(count).padStart(2, '0')}</span>
+    </div>
+  );
+}
 
-export default Sponsors;
+export default function Sponsors() {
+  return (
+    <section className="sponsors on-dark" id="sponsors" aria-labelledby="sp-title">
+      <div className="in">
+        <div className="sp-head" data-reveal>
+          <h2 className="title" id="sp-title">Our <span>Sponsors</span></h2>
+          <p>The organizations that make the conclave possible.</p>
+        </div>
+
+        <div className="tier">
+          <TierLabel name="Platinum" count={PLATINUM.length} />
+          <ul className="t-plat" data-stagger>
+            {PLATINUM.map((s) => <li className="sp-cell" key={s.n}><Plate {...s} /></li>)}
+          </ul>
+        </div>
+
+        <div className="tier">
+          <TierLabel name="Gold" count={GOLD.length} />
+          <ul className="t-gold" data-stagger>
+            {GOLD.map((s) => <li className="sp-cell" key={s.n}><Plate {...s} /></li>)}
+          </ul>
+        </div>
+
+        <div className="tier">
+          <TierLabel name="Silver & Partners" count={PARTNERS.length} />
+          <ul className="t-part" data-stagger>
+            {PARTNERS.map((s) => (
+              <li className={`sp-cell${s.silver ? ' silver' : ''}`} key={s.n}>
+                <Plate {...s} /><span>{s.label}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </section>
+  );
+}
