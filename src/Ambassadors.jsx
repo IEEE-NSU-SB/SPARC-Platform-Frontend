@@ -8,12 +8,12 @@ import amb1 from '/assets/why-37.jpg';
 export default function Ambassadors() {
 
   const ambassadors = [
-    { name: "Nuren Tasnim Risha", university: "American International University - Bangladesh", image: amb1, ig: 'https://instagram.com/username', fb: 'https://facebook.com/username', linkedin: 'https://linkedin.com/in/username', whatsapp: '+8801700000000'},
-    { name: "MD. Nahiduzzaman", university: "American International University - Bangladesh", image: amb1, ig: 'https://instagram.com/username', linkedin: 'https://linkedin.com/in/username', whatsapp: '+8801700000000'},
-    { name: "Sanjida Islam Shaila", university: "Ahsanullah University of Science and Technology", image: amb1, ig: 'https://instagram.com/username', whatsapp: '+8801700000000'},
-    { name: "SADAB BIN ZAFAR", university: "Ahsanullah University of Science and Technology", image: amb1, ig: 'https://instagram.com/username', fb: 'https://facebook.com/username', linkedin: 'https://linkedin.com/in/username', whatsapp: '+8801700000000'},
-    { name: "Jannatul masruk Mukta", university: "Bangladesh University of Business and Technology", image: amb1, ig: 'https://instagram.com/username', fb: 'https://facebook.com/username', linkedin: 'https://linkedin.com/in/username', whatsapp: '+8801700000000'},
-    { name: "Md. Sadik Mahmud Adive", university: "Bangladesh University of Business and Technology", image: amb1, ig: 'https://instagram.com/username', fb: 'https://facebook.com/username', linkedin: 'https://linkedin.com/in/username', whatsapp: '+8801700000000'},
+    { name: "Nuren Tasnim Risha", role: "Ambassador",  uniName: "American International University - Bangladesh", uniNameShrt: "AIUB", image: amb1, socials: {linkedin: 'https://linkedin.com/in/username', facebook: 'https://facebook.com/username', instagram: 'https://instagram.com/username', whatsapp: '+8801700000000'}},
+    { name: "MD. Nahiduzzaman", role: "Ambassador", uniName: "American International University - Bangladesh", uniNameShrt: "AIUB", image: amb1, ig: 'https://instagram.com/username', linkedin: 'https://linkedin.com/in/username', whatsapp: '+8801700000000'},
+    { name: "Sanjida Islam Shaila", role: "Ambassador", uniName: "Ahsanullah University of Science and Technology", uniNameShrt: "AUST", image: amb1, ig: 'https://instagram.com/username', whatsapp: '+8801700000000'},
+    { name: "SADAB BIN ZAFAR", role: "Ambassador", uniName: "Ahsanullah University of Science and Technology", uniNameShrt: "AUST", image: amb1, ig: 'https://instagram.com/username', fb: 'https://facebook.com/username', linkedin: 'https://linkedin.com/in/username', whatsapp: '+8801700000000'},
+    { name: "Jannatul masruk Mukta", role: "Ambassador", uniName: "Bangladesh University of Business and Technology", uniNameShrt: "BUBT", image: amb1, ig: 'https://instagram.com/username', fb: 'https://facebook.com/username', linkedin: 'https://linkedin.com/in/username', whatsapp: '+8801700000000'},
+    { name: "Md. Sadik Mahmud Adive", role: "Ambassador", uniName: "Bangladesh University of Business and Technology", uniNameShrt: "BUBT", image: amb1, ig: 'https://instagram.com/username', fb: 'https://facebook.com/username', linkedin: 'https://linkedin.com/in/username'},
     { name: "Pulak Bhowmik", university: "Chittagong University of Engineering and Technology", image: amb1, ig: 'https://instagram.com/username', fb: 'https://facebook.com/username', linkedin: 'https://linkedin.com/in/username', whatsapp: '+8801700000000'},
     { name: "Shah Mohammad Tahsin", university: "Chittagong University of Engineering and Technology", image: amb1 },
     { name: "Arman Hossain", university: "Daffodil International University", image: amb1 },
@@ -57,13 +57,13 @@ export default function Ambassadors() {
         </div>
       </section>
       
-      <PolkaBackground as="section" bgColor="#fffafb" dotColorOverride="rgba(185, 14, 44, 0.05)" direction="bottom-right" style={{ padding: "3rem 0" }}>
-        <div className="in">
+      <section style={{ backgroundColor: "#FFFAFB", padding: "3rem 0" }}>
+        <div className="RyIN">
           <AmbassadorsObj
             ambassadors={ambassadors}
           />
         </div>
-      </PolkaBackground>
+      </section>
     </>
   );
 }

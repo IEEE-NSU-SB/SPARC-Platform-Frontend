@@ -73,7 +73,7 @@ An 18-year veteran of the tech industry, Zuberul leads a strong team of 120 engi
       </section>
       
       <section style={{ backgroundColor: "#FFFAFB", padding: "3rem 0" }} className="RyBG">
-        <div className="in">
+        <div className="RyIN">
           <SpeakersObj speakers={speakersData} />
         </div>
       </section>
