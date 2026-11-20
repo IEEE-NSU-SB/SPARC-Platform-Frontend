@@ -504,3 +504,15 @@ footer{background:var(--night);color:#e9d6db;padding-block:52px 20px}
   *,*::before,*::after{transition-duration:.01ms!important;animation-duration:.01ms!important;animation-iteration-count:1!important}
   .rv{opacity:1;transform:none}
 }
+
+/* Ry */
+:root {
+  --ry-max: 1060px;
+}
+.RyIN {
+  width: 100%;
+  max-width: calc(var(--ry-max) + var(--gl) + var(--gr));
+  margin-inline: auto;
+  padding-left: var(--gl);
+  padding-right: var(--gr);
+}

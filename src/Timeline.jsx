@@ -109,13 +109,13 @@ export default function Timeline() {
         </div>
       </section>
       
-      <PolkaBackground as="section" bgColor="#ffffff" dotColorOverride="rgba(185, 14, 44, 0.05)" direction="bottom-right" style={{ padding: "3rem 0" }}>
-        <div className="in">
+      <section style={{ backgroundColor: "#ffffff", padding: "3rem 0" }}>
+        <div className="RyIN">
           <TimelineObj
             events={scheduleData} 
           />
         </div>
-      </PolkaBackground>
+      </section>
     </>
   );
 }
