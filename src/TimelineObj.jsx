@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 
 const STYLE_ID = 'sparc-timeline-styles';
 
@@ -16,7 +16,17 @@ const TIMELINE_CSS = `
   padding: 16px 10px;
   border-radius: 8px;
   border-bottom: 1px solid rgba(20, 20, 23, 0.1);
-  transition: background-color 0.18s ease;
+  opacity: 0;
+  transform: translateY(22px);
+  transition:
+    opacity 0.52s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.52s cubic-bezier(0.22, 1, 0.36, 1),
+    background-color 0.18s ease;
+}
+
+.sparc-tl__row.is-visible {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .sparc-tl__row:last-child { border-bottom: none; }
@@ -75,6 +85,12 @@ const TIMELINE_CSS = `
   box-shadow: 0 0 0 4px rgba(200, 16, 46, 0.12);
   box-sizing: border-box;
   flex-shrink: 0;
+  transform: scale(0.55);
+  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1) 0.1s;
+}
+
+.sparc-tl__row.is-visible .sparc-tl__node {
+  transform: scale(1);
 }
 
 /* Right: Event Text */
@@ -100,6 +116,15 @@ const TIMELINE_CSS = `
 .sparc-tl[data-theme='dark'] .sparc-tl__title { color: #ffffff; }
 .sparc-tl[data-theme='dark'] .sparc-tl__time-end,
 .sparc-tl[data-theme='dark'] .sparc-tl__desc { color: #a1a1aa; }
+
+@media (prefers-reduced-motion: reduce) {
+  .sparc-tl__row,
+  .sparc-tl__node {
+    opacity: 1;
+    transform: none;
+    transition: background-color 0.18s ease;
+  }
+}
 `;
 
 export const DEFAULT_TIMELINE_EVENTS = [
@@ -133,17 +158,53 @@ export default function TimelineObj({
   className = '',
   style = {},
 }) {
+  const containerRef = useRef(null);
+
   useEffect(() => {
-    if (typeof document !== 'undefined' && !document.getElementById(STYLE_ID)) {
-      const tag = document.createElement('style');
+    if (typeof document === 'undefined') return;
+    let tag = document.getElementById(STYLE_ID);
+    if (!tag) {
+      tag = document.createElement('style');
       tag.id = STYLE_ID;
-      tag.textContent = TIMELINE_CSS;
       document.head.appendChild(tag);
     }
+    tag.textContent = TIMELINE_CSS;
   }, []);
+
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return undefined;
+
+    const rows = Array.from(container.querySelectorAll('.sparc-tl__row'));
+
+    if (typeof window === 'undefined' || !('IntersectionObserver' in window)) {
+      rows.forEach((row) => row.classList.add('is-visible'));
+      return undefined;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      {
+        threshold: 0.15,
+        rootMargin: '0px 0px -36px 0px',
+      }
+    );
+
+    rows.forEach((row) => observer.observe(row));
+
+    return () => observer.disconnect();
+  }, [events]);
 
   return (
     <div
+      ref={containerRef}
       data-theme={theme}
       className={`sparc-tl ${className}`.trim()}
       style={style}
