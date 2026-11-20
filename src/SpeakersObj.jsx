@@ -13,19 +13,19 @@ const SPEAKERS_CSS = `
   box-sizing: border-box;
 }
 
-/* 2. Speaker Card (Snug Framing + Perimeter Hover Stroke) */
+/* 2. Speaker Card (Flush Full-Bleed Image Framing + Perimeter Hover Stroke) */
 .sparc-spk-card {
   position: relative;
   display: grid;
   grid-template-columns: 300px 1fr;
-  gap: clamp(16px, 2.4vw, 26px);
-  align-items: start;
-  padding: 10px;
+  gap: 0;
+  align-items: stretch;
+  padding: 0;
   border-radius: 18px;
   overflow: hidden;
   isolation: isolate;
   background-color: #f2f0f1;
-  border: 1.5px solid rgba(20, 20, 23, 0.1);
+  border: 1.5px solid rgba(20, 20, 23, 0.12);
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.045);
   box-sizing: border-box;
 
@@ -108,19 +108,25 @@ const SPEAKERS_CSS = `
   opacity: 1;
 }
 
-/* 4. Fixed 400:560 Portrait Frame with 1px Dark Outer Stroke */
+/* 4. Flush Left 400:560 Portrait Section (Matches Card Border Color) */
 .sparc-spk-card__media {
   position: relative;
   z-index: 1;
   width: 300px;
-  height: 420px;
-  border-radius: 11px;
+  min-height: 420px;
+  height: 100%;
+  border-radius: 0;
   overflow: hidden;
   background-color: #d4d4d8;
-  border: 1px solid rgba(20, 20, 23, 0.35);
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.14);
+  border: none;
+  border-right: 1px solid rgba(20, 20, 23, 0.12);
   box-sizing: border-box;
   flex-shrink: 0;
+  transition: border-color 0.3s ease;
+}
+
+.sparc-spk-card:hover .sparc-spk-card__media {
+  border-color: #b90e2c;
 }
 
 .sparc-spk-card__img {
@@ -140,8 +146,9 @@ const SPEAKERS_CSS = `
 .sparc-spk-card__body {
   position: relative;
   z-index: 1;
-  padding: 14px 16px;
+  padding: clamp(20px, 2.8vw, 28px) clamp(20px, 3vw, 32px);
   text-align: left;
+  box-sizing: border-box;
 }
 
 .sparc-spk-card__name {
@@ -247,7 +254,7 @@ const SPEAKERS_CSS = `
   color: #ffffff;
 }
 
-/* 7. Keyframes, Mobile Breakpoint & Reduced Motion */
+/* 7. Keyframes, Mobile Full-Bleed Top Image & Reduced Motion */
 @keyframes spkPolkaDiagonal {
   0% {
     transform: translate3d(0px, 0px, 0);
@@ -265,15 +272,17 @@ const SPEAKERS_CSS = `
 
   .sparc-spk-card__media {
     width: 100%;
-    max-width: none;
+    min-height: 0;
     height: auto;
     aspect-ratio: 400 / 560;
+    border-right: none;
+    border-bottom: 1px solid rgba(20, 20, 23, 0.12);
+    border-radius: 0;
   }
 
   .sparc-spk-card__body {
     width: 100%;
-    padding: 4px 8px 10px;
-    box-sizing: border-box;
+    padding: 18px 20px 22px;
   }
 
   .sparc-spk-card__desc--clamped {
@@ -355,7 +364,7 @@ function SpeakerCard({ speaker, dotsRest, dotsHover }) {
         </span>
       </span>
 
-      {/* Fixed 400:560 Portrait Image with 1px Dark Stroke */}
+      {/* Flush 400:560 Portrait Section */}
       <div className="sparc-spk-card__media">
         {speaker.image && (
           <img
@@ -367,7 +376,7 @@ function SpeakerCard({ speaker, dotsRest, dotsHover }) {
         )}
       </div>
 
-      {/* Right Speaker Info */}
+      {/* Speaker Info */}
       <div className="sparc-spk-card__body">
         <h3 className="sparc-spk-card__name">{speaker.name}</h3>
 
@@ -401,7 +410,7 @@ function SpeakerCard({ speaker, dotsRest, dotsHover }) {
   );
 }
 
-export default function SpeakersObj({
+export default function SpeakersSection({
   speakers = {},
   className = '',
   style = {},
