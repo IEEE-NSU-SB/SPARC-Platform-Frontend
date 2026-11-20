@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import StarSky from './StarSky';
 import TimelineObj from './TimelineObj';
+import PolkaBackground from './PolkaBackground';
 
 
 export default function Timeline() {
@@ -108,13 +109,13 @@ export default function Timeline() {
         </div>
       </section>
       
-      <section style={{ backgroundColor: "#FFFAFB", padding: "3rem 0" }}>
+      <PolkaBackground as="section" bgColor="#ffffff" dotColorOverride="rgba(185, 14, 44, 0.05)" direction="bottom-right" style={{ padding: "3rem 0" }}>
         <div className="in">
           <TimelineObj
             events={scheduleData} 
           />
         </div>
-      </section>
+      </PolkaBackground>
     </>
   );
 }

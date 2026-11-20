@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import StarSky from './StarSky';
 import AmbassadorsObj from './AmbassadorsObj';
+import PolkaBackground from './PolkaBackground';
 
 import amb1 from '/assets/why-37.jpg';
 
@@ -43,7 +44,7 @@ export default function Ambassadors() {
   ];
 
   useEffect(() => {
-    document.title = `Timeline · SPARC 2026 · IEEE NSU SB`;
+    document.title = `Ambassadors · SPARC 2026 · IEEE NSU SB`;
   }, []);
 
   return (
@@ -56,13 +57,13 @@ export default function Ambassadors() {
         </div>
       </section>
       
-      <section style={{ backgroundColor: "#FFFAFB", padding: "3rem 0" }}>
+      <PolkaBackground as="section" bgColor="#fffafb" dotColorOverride="rgba(185, 14, 44, 0.05)" direction="bottom-right" style={{ padding: "3rem 0" }}>
         <div className="in">
           <AmbassadorsObj
             ambassadors={ambassadors}
           />
         </div>
-      </section>
+      </PolkaBackground>
     </>
   );
 }

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 
 const STYLE_ID = 'sparc-ambassadors-styles';
 
@@ -22,9 +22,17 @@ const AMBASSADORS_CSS = `
   background-color: #1a0a0f;
   color: #ffffff;
   box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
+  opacity: 0;
+  transform: translateY(28px) scale(0.98);
   transition:
-    transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.55s cubic-bezier(0.22, 1, 0.36, 1),
     box-shadow 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.sparc-amb-card.is-visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
 }
 
 /* Column offset stagger while keeping all cards identical in size */
@@ -37,7 +45,7 @@ const AMBASSADORS_CSS = `
   }
 }
 
-.sparc-amb-card:hover {
+.sparc-amb-card.is-visible:hover {
   transform: translateY(-6px);
   box-shadow: 0 30px 62px rgba(0, 0, 0, 0.52);
 }
@@ -113,15 +121,15 @@ const AMBASSADORS_CSS = `
   color: #ffffff;
   letter-spacing: -0.01em;
   text-shadow:
-    0 2px 12px rgba(124, 0, 34, 0.95),
-    0 0 24px rgba(124, 0, 34, 0.7);
+    0 2px 12px rgba(48, 48, 48, 0.95),
+    0 0 24px rgba(36, 36, 36, 0.7);
   transition: text-shadow 0.35s ease;
 }
 
 .sparc-amb-card:hover .sparc-amb-card__name {
   text-shadow:
-    0 2px 14px rgba(124, 0, 34, 1),
-    0 0 28px rgba(190, 18, 60, 0.85);
+    0 2px 12px rgba(48, 48, 48, 0.95),
+    0 0 24px rgba(36, 36, 36, 0.7);
 }
 
 .sparc-amb-card__uni-row {
@@ -159,6 +167,17 @@ const AMBASSADORS_CSS = `
     grid-template-columns: 1fr;
   }
 }
+
+@media (prefers-reduced-motion: reduce) {
+  .sparc-amb-card {
+    opacity: 1;
+    transform: none;
+    transition: box-shadow 0.3s ease;
+  }
+  .sparc-amb-card.is-visible:hover {
+    transform: none;
+  }
+}
 `;
 
 function LocationPinIcon() {
@@ -179,22 +198,61 @@ function LocationPinIcon() {
   );
 }
 
-export default function AmbassadorsSection({
+export default function AmbassadorsObj({
   ambassadors = [],
   className = '',
   style = {},
 }) {
+  const gridRef = useRef(null);
+
   useEffect(() => {
-    if (typeof document !== 'undefined' && !document.getElementById(STYLE_ID)) {
-      const tag = document.createElement('style');
-      tag.id = STYLE_ID;
-      tag.textContent = AMBASSADORS_CSS;
-      document.head.appendChild(tag);
+    if (typeof document === 'undefined') return;
+    let styleTag = document.getElementById(STYLE_ID);
+    if (!styleTag) {
+      styleTag = document.createElement('style');
+      styleTag.id = STYLE_ID;
+      document.head.appendChild(styleTag);
     }
+    styleTag.textContent = AMBASSADORS_CSS;
   }, []);
 
+  useEffect(() => {
+    const grid = gridRef.current;
+    if (!grid) return undefined;
+
+    const cards = Array.from(grid.querySelectorAll('.sparc-amb-card'));
+
+    if (typeof window === 'undefined' || !('IntersectionObserver' in window)) {
+      cards.forEach((card) => card.classList.add('is-visible'));
+      return undefined;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      {
+        threshold: 0.12,
+        rootMargin: '0px 0px -40px 0px',
+      }
+    );
+
+    cards.forEach((card) => observer.observe(card));
+
+    return () => observer.disconnect();
+  }, [ambassadors]);
+
   return (
-    <div className={`sparc-amb-grid ${className}`.trim()} style={style}>
+    <div
+      ref={gridRef}
+      className={`sparc-amb-grid ${className}`.trim()}
+      style={style}
+    >
       {ambassadors.map((person, index) => {
         const photoSrc = person.image || person.photo || person.photoUrl || '';
 
