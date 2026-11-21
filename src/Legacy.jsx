@@ -26,7 +26,11 @@ export default function Legacy() {
           <li className="ed"><b>SPAC 2025</b><span>December 29, 2025 · North South University</span></li>
           <li className="ed now"><b>SPARC</b><span>December 30, 2026 · North South University</span></li>
         </ol>
-        <p className="sublabel">Highlight video · SPAC 2024</p>
+        <div className="ly-head" data-reveal>
+          <span className="ly-orn" aria-hidden="true"><i /><b /><i /></span>
+          <h3 className="ly-title">Last Year&apos;s <span>SPAC</span></h3>
+          <p className="ly-sub">Relive the highlights from SPAC 2024</p>
+        </div>
         <div className="video" data-reveal>
           <video ref={vid} src="/assets/spac24.mp4" poster="/assets/spac24-poster.jpg" autoPlay muted loop playsInline preload="metadata" />
           <button className="sound" type="button" onClick={toggleSound}>{muted ? 'Sound on' : 'Sound off'}</button>

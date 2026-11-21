@@ -25,15 +25,15 @@ export default function Home() {
       <Hero />
       <WhatIs />
       <Metrics />
-      <Goal />
-      <WhatAwaits />
-      <WhyAttend />
       <Collaborators />
+      <WhatAwaits />
+      <Goal />
+      <WhyAttend />
       <Sponsors />
+      <CtaBand />
       <Legacy />
       <Moments />
       <Faq />
-      <CtaBand />
     </main>
   );
 }

@@ -42,7 +42,7 @@ function TierLabel({ name, count }) {
 
 export default function Sponsors() {
   return (
-    <section className="sponsors on-dark" id="sponsors" aria-labelledby="sp-title">
+    <section className="sponsors" id="sponsors" aria-labelledby="sp-title">
       <div className="in">
         <div className="sp-head" data-reveal>
           <h2 className="title" id="sp-title">Our <span>Sponsors</span></h2>

@@ -4,10 +4,10 @@ import { initSpotlight } from './lib/effects';
 const LOGOS = [
   { src: '/assets/collab2.png', w: 887, h: 361, alt: 'IEEE NSU Student Branch' },
   { src: '/assets/ieee-bd-logo.png', w: 242, h: 113, alt: 'IEEE Bangladesh Section' },
-  { src: '/assets/ieee-yf.png', w: 418, h: 104, alt: 'IEEE Foundation' },
-  { src: '/assets/collab1.png', w: 1144, h: 341, alt: 'Collaborator' },
-  { src: '/assets/collab4.png', w: 1470, h: 371, alt: 'Collaborator' },
-  { src: '/assets/collab6.png', w: 962, h: 401, alt: 'Collaborator' },
+  { src: '/assets/ieee-yf.png', w: 418, h: 104, alt: 'IEEE Young Professionals Bangladesh' },
+  { src: '/assets/collab1.png', w: 1144, h: 341, alt: 'IEEE' },
+  { src: '/assets/collab4.png', w: 1470, h: 371, alt: 'IEEE Foundation' },
+  { src: '/assets/collab6.png', w: 962, h: 401, alt: 'IEEE Students' },
 ];
 
 /* Credits wall: logos rise in on scroll, then a spotlight moves between cells. */
