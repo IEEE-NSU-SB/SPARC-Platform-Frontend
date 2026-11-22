@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import SmartLink from './SmartLink';
-import { CtaGroup, CtaLink } from './CtaLink';
+import { CtaLink } from './CtaLink';
 
 /* Top navigation: Home · Timeline · Speakers · Ambassadors · Registration · Contact.
    The current page gets the crimson underline (aria-current="page"). */
@@ -46,7 +46,6 @@ export default function Navbar() {
           <SmartLink k="ambassadors" nav>Ambassadors</SmartLink>
           <CtaLink ctaKey="register" variant="text" text="Registration" />
           <a href="#contact">Contact</a>
-          <CtaGroup className="menu-ctas" />
         </nav>
       </div>
     </header>

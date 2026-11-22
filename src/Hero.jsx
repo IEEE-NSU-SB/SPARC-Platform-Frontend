@@ -25,7 +25,7 @@ export default function Hero() {
 
   const ev = CONFIG.event;
   return (
-    <section className="hero" id="hero" aria-label="SPARC 2026" ref={ref}>
+    <section className="hero" id="hero" aria-label="SPARC" ref={ref}>
       <StarSky />
       <div className="hero-shade" aria-hidden="true" />
       <div className="in hero-in">

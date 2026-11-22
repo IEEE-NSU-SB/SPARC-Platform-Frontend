@@ -72,24 +72,29 @@ export function initReveal(root = document) {
 /* Metric numbers count up when they come into view. */
 export function initCountUp(root) {
   if (prefersReducedMotion() || !('IntersectionObserver' in window)) return () => {};
-  const rafs = [];
+  const rafs = new Map();
+  // counts up from 0 when the number scrolls into view, back down when it leaves
+  const run = (el, to, dur, ease) => {
+    cancelAnimationFrame(rafs.get(el));
+    const from = +el.textContent || 0;
+    let t0 = null;
+    const step = (t) => {
+      if (!t0) t0 = t;
+      const p = Math.min(1, (t - t0) / dur);
+      el.textContent = Math.round(from + (to - from) * ease(p));
+      if (p < 1) rafs.set(el, requestAnimationFrame(step));
+    };
+    rafs.set(el, requestAnimationFrame(step));
+  };
   const io = new IntersectionObserver((entries) => {
     entries.forEach((en) => {
-      if (!en.isIntersecting) return;
-      io.unobserve(en.target);
-      const el = en.target, target = +el.getAttribute('data-target'), dur = 1400;
-      let t0 = null;
-      const step = (t) => {
-        if (!t0) t0 = t;
-        const p = Math.min(1, (t - t0) / dur);
-        el.textContent = Math.round(target * (1 - Math.pow(1 - p, 3)));
-        if (p < 1) rafs.push(requestAnimationFrame(step));
-      };
-      rafs.push(requestAnimationFrame(step));
+      const el = en.target;
+      if (en.isIntersecting) run(el, +el.getAttribute('data-target'), 1400, (p) => 1 - Math.pow(1 - p, 3));
+      else run(el, 0, 500, (p) => p * p);
     });
   }, { threshold: 0.6 });
-  root.querySelectorAll('[data-target]').forEach((n) => io.observe(n));
-  return () => { io.disconnect(); rafs.forEach(cancelAnimationFrame); };
+  root.querySelectorAll('[data-target]').forEach((n) => { n.textContent = '0'; io.observe(n); });
+  return () => { io.disconnect(); rafs.forEach((r) => cancelAnimationFrame(r)); };
 }
 
 /* Collaborators: a spotlight moves from cell to cell. */
@@ -124,11 +129,12 @@ export function initSpotlight(wall) {
 export function initFaq(list) {
   const reduceMotion = prefersReducedMotion();
   const navH = () => (document.getElementById('nav')?.offsetHeight || 0) + 16;
-  const offs = [];
+  const offs = [], items = [];
   list.querySelectorAll('details').forEach((d) => {
     const sum = d.querySelector('summary'), ans = d.querySelector('.ans');
     if (!sum || !ans) return;
     let anim = null;
+    const isOpen = () => d.open && !d.classList.contains('closing');
     const done = (open) => {
       anim = null;
       d.open = open;
@@ -142,9 +148,7 @@ export function initFaq(list) {
       const by = Math.min(over, Math.max(0, room));
       if (by > 0) window.scrollBy({ top: by, behavior: reduceMotion ? 'auto' : 'smooth' });
     };
-    const onClick = (e) => {
-      e.preventDefault();
-      const opening = !d.open || d.classList.contains('closing');
+    const set = (opening) => {
       if (anim) anim.cancel();
       if (reduceMotion || !ans.animate) { done(opening); if (opening) reveal(); return; }
       const pb = getComputedStyle(ans).paddingBottom;
@@ -164,6 +168,15 @@ export function initFaq(list) {
         );
         anim.onfinish = () => done(false);
       }
+    };
+    const item = { d, isOpen, set };
+    items.push(item);
+    const onClick = (e) => {
+      e.preventDefault();
+      const opening = !isOpen();
+      // only one answer open at a time: close the others first
+      if (opening) items.forEach((o) => { if (o !== item && o.isOpen()) o.set(false); });
+      set(opening);
     };
     sum.addEventListener('click', onClick);
     offs.push(() => { sum.removeEventListener('click', onClick); if (anim) anim.cancel(); });

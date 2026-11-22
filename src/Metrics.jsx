@@ -1,6 +1,14 @@
 import { useEffect, useRef } from 'react';
 import CONFIG from './config';
 import { initCountUp } from './lib/effects';
+import ambassadors from './data/ambassadors';
+
+/* Universities = the distinct universities our campus ambassadors come from,
+   so the number follows the Ambassadors list automatically. */
+const UNIVERSITIES = new Set(
+  ambassadors.map((a) => (a.uniName || a.university || '').trim().toLowerCase()).filter(Boolean)
+).size;
+const AUTO = { Universities: UNIVERSITIES };
 
 const ICON = {
   editions: <><path d="M12 3 3 7.5l9 4.5 9-4.5L12 3Z" /><path d="m3 12 9 4.5 9-4.5" /><path d="m3 16.5 9 4.5 9-4.5" /></>,
@@ -22,7 +30,8 @@ export default function Metrics() {
           <h2 id="metrics-title">The fourth edition, now <span>regional.</span></h2>
         </div>
         <div className="m-cards" ref={ref}>
-          {CONFIG.metrics.map((m, i) => {
+          {CONFIG.metrics.map((m0, i) => {
+            const m = m0.value == null && AUTO[m0.label] ? { ...m0, value: AUTO[m0.label] } : m0;
             const known = typeof m.value === 'number';
             return (
               <div key={m.label} className={`metric${known ? '' : ' tba'}`} data-reveal style={{ '--d': `${0.07 * i}s` }}>

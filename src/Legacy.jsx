@@ -27,7 +27,6 @@ export default function Legacy() {
           <li className="ed now"><b>SPARC</b><span>December 30, 2026 · North South University</span></li>
         </ol>
         <div className="ly-head" data-reveal>
-          <span className="ly-orn" aria-hidden="true"><i /><b /><i /></span>
           <h3 className="ly-title">Last Year&apos;s <span>SPAC</span></h3>
           <p className="ly-sub">Relive the highlights from SPAC 2024</p>
         </div>

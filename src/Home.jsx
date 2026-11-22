@@ -16,7 +16,7 @@ import { initReveal } from './lib/effects';
 /* Home page: all sections in order. */
 export default function Home() {
   useEffect(() => {
-    document.title = 'SPARC 2026 · IEEE NSU SB';
+    document.title = 'SPARC · IEEE NSU SB';
     return initReveal(document); // scroll reveal for [data-reveal] / [data-stagger]
   }, []);
 

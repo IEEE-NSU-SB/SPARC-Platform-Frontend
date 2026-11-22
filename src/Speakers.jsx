@@ -6,7 +6,7 @@ import a1 from '/assets/why-37.jpg';
 
 export default function Timeline() {
   useEffect(() => {
-    document.title = `Speakers · SPARC 2026 · IEEE NSU SB`;
+    document.title = `Speakers · SPARC · IEEE NSU SB`;
   }, []);
   
 
@@ -67,7 +67,7 @@ An 18-year veteran of the tech industry, Zuberul leads a strong team of 120 engi
       <section style={{minHeight: "50vh"}} className="page-hero" aria-labelledby="page-title">
         <StarSky />
         <div className="in">
-          <h1 id="page-title" data-star-avoid>SPARC 2026 Speakers</h1>
+          <h1 id="page-title" data-star-avoid>SPARC Speakers</h1>
           <p data-star-avoid>Meet Our Distinguished Speakers</p>
         </div>
       </section>

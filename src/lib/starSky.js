@@ -11,6 +11,10 @@ export function initStarSky(c) {
   if (!x) return () => {};
   let W = 0, H = 0, stars = [], sparks = [], shoot = null, nextShoot = 0;
   let running = true, raf = 0, last = 0;
+  // cursor parallax: tx/ty is where the pointer is (-1..1), mx/my eases toward it
+  let tx = 0, ty = 0, mx = 0, my = 0;
+  const parallax = !reduceMotion && window.matchMedia('(hover:hover) and (pointer:fine)').matches;
+  const host = c.parentNode;
   const avoidEls = Array.from(c.parentNode.querySelectorAll('[data-star-avoid]'));
   const GOLD = '243,199,112';
   const rnd = (a, b) => a + Math.random() * (b - a);
@@ -74,11 +78,13 @@ export function initStarSky(c) {
   }
   function draw(t, dt) {
     x.clearRect(0, 0, W, H);
+    if (parallax) { const k = Math.min(1, dt * 4); mx += (tx - mx) * k; my += (ty - my) * k; }
     for (const s0 of stars) {
       if (!reduceMotion) { s0.y -= dt * s0.r * 3; if (s0.y < -2) { s0.y = H + 2; s0.x = rnd(0, W); } }
       const a = reduceMotion ? s0.base : s0.base * (0.55 + 0.45 * Math.sin(t * s0.sp + s0.ph));
       x.fillStyle = s0.pink ? `rgba(255,150,170,${a})` : `rgba(255,240,244,${a})`;
-      x.beginPath(); x.arc(s0.x, s0.y, s0.r, 0, 6.283); x.fill();
+      const d = s0.r * 11; // bigger (nearer) stars move further
+      x.beginPath(); x.arc(s0.x + mx * d, s0.y + my * d, s0.r, 0, 6.283); x.fill();
     }
     for (const sp of sparks) {
       if (!reduceMotion) { sp.age += dt; if (sp.age > sp.dur) placeSpark(sp); }
@@ -86,7 +92,7 @@ export function initStarSky(c) {
       if (p < 0) continue;
       const al = p < 0.25 ? p / 0.25 : p > 0.75 ? (1 - p) / 0.25 : 1;
       const sc = 0.86 + 0.14 * Math.sin(p * Math.PI * 2);
-      sparkle(sp.x, sp.y, sp.size * sc, al * 0.9, sp.rot);
+      sparkle(sp.x + mx * 8, sp.y + my * 8, sp.size * sc, al * 0.9, sp.rot);
     }
     if (reduceMotion) return;
     nextShoot -= dt;
@@ -118,6 +124,13 @@ export function initStarSky(c) {
   if (reduceMotion) draw(0, 0);
   else raf = requestAnimationFrame(frame);
   window.addEventListener('resize', onResize);
+  const onMove = (e) => {
+    const r = c.getBoundingClientRect();
+    tx = Math.max(-1, Math.min(1, ((e.clientX - r.left) / r.width) * 2 - 1));
+    ty = Math.max(-1, Math.min(1, ((e.clientY - r.top) / r.height) * 2 - 1));
+  };
+  const onLeave = () => { tx = 0; ty = 0; };
+  if (parallax) { host.addEventListener('pointermove', onMove); host.addEventListener('pointerleave', onLeave); }
 
   let io = null;
   if ('IntersectionObserver' in window && !reduceMotion) {
@@ -132,6 +145,7 @@ export function initStarSky(c) {
     running = false;
     cancelAnimationFrame(raf);
     window.removeEventListener('resize', onResize);
+    if (parallax) { host.removeEventListener('pointermove', onMove); host.removeEventListener('pointerleave', onLeave); }
     if (io) io.disconnect();
   };
 }

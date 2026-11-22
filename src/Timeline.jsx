@@ -6,7 +6,7 @@ import PolkaBackground from './PolkaBackground';
 
 export default function Timeline() {
   useEffect(() => {
-    document.title = `Timeline · SPARC 2026 · IEEE NSU SB`;
+    document.title = `Timeline · SPARC · IEEE NSU SB`;
   }, []);
   
   

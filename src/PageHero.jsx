@@ -8,7 +8,7 @@ import { ArrowIcon } from './Icons';
    (rendered below the header). */
 export default function PageHero({ title, line, chip = 'Coming soon', children }) {
   useEffect(() => {
-    document.title = `${title} · SPARC 2026 · IEEE NSU SB`;
+    document.title = `${title} · SPARC · IEEE NSU SB`;
   }, [title]);
 
   return (
