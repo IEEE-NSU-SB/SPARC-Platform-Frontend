@@ -5,6 +5,15 @@ import Countdown from './Countdown';
 import SmartLink from './SmartLink';
 import { CtaGroup } from './CtaLink';
 import { initHeroCover } from './lib/effects';
+import { showToast } from './lib/utils';
+
+/* Always visible: uses the URL from CONFIG.links when set, otherwise
+   shows the "opens soon" notice (like the CTA buttons). */
+function EventLink({ k, children }) {
+  if (CONFIG.links[k]) return <SmartLink k={k}>{children}</SmartLink>;
+  const onClick = (e) => { e.preventDefault(); showToast(`${children}: ${CONFIG.pendingMessage}`); };
+  return <a href="#" aria-describedby="toast" onClick={onClick}>{children}</a>;
+}
 
 export default function Hero() {
   const ref = useRef(null);
@@ -32,8 +41,8 @@ export default function Hero() {
         <Countdown />
         <CtaGroup data-star-avoid="" />
         <div className="event-links">
-          <SmartLink k="facebookEvent">Facebook event</SmartLink>
-          <SmartLink k="eventWebsite">Event page on ieeensusb.org</SmartLink>
+          <EventLink k="facebookEvent">Facebook event</EventLink>
+          <EventLink k="eventWebsite">Event page on ieeensusb.org</EventLink>
         </div>
       </div>
     </section>
