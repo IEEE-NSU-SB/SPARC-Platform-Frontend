@@ -103,7 +103,7 @@ function parseRgb(color) {
 
 function getComplementaryDotColor(bgColor) {
   const rgb = parseRgb(bgColor);
-  if (!rgb) return 'rgba(185, 14, 44, 0.14)';
+  if (!rgb) return 'rgba(153, 1, 40, 0.14)';
 
   const { r, g, b } = rgb;
   const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
@@ -119,7 +119,7 @@ function getComplementaryDotColor(bgColor) {
   // Light background -> subtle crimson or slate contrast
   const isNeutralOrWarm = r >= b;
   return isNeutralOrWarm
-    ? 'rgba(185, 14, 44, 0.12)'
+    ? 'rgba(153, 1, 40, 0.12)'
     : 'rgba(18, 24, 38, 0.11)';
 }
 

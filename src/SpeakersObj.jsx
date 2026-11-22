@@ -34,8 +34,8 @@ const SPEAKERS_CSS = `
 }
 
 .sparc-spk-card:hover {
-  border-color: var(--crimson, #d0002f);
-  box-shadow: 0 0 0 1px rgba(208, 0, 47, 0.25), 0 14px 30px rgba(20, 4, 10, 0.12);
+  border-color: var(--crimson, #990128);
+  box-shadow: 0 0 0 1px rgba(153, 1, 40, 0.25), 0 14px 30px rgba(20, 4, 10, 0.12);
 }
 
 .sparc-spk-media {
@@ -78,7 +78,7 @@ const SPEAKERS_CSS = `
   font-weight: 700;
   line-height: 1.2;
   letter-spacing: -0.02em;
-  color: var(--crimson, #d0002f);
+  color: var(--crimson, #990128);
 }
 
 .sparc-spk-role {
@@ -99,9 +99,9 @@ const SPEAKERS_CSS = `
   padding: 4px 10px;
   border-radius: 9999px;
   background: #fff5f7;
-  border: 1px solid rgba(208, 0, 47, 0.2);
+  border: 1px solid rgba(153, 1, 40, 0.2);
   font: 600 11px/1.3 'JetBrains Mono', ui-monospace, monospace;
-  color: var(--crimson-ink, #a3001f);
+  color: var(--crimson-ink, #7a0120);
   white-space: nowrap;
 }
 
@@ -133,9 +133,9 @@ const SPEAKERS_CSS = `
   margin-top: 18px;
   padding: 7px 16px;
   border-radius: 9999px;
-  border: 1px solid rgba(208, 0, 47, 0.24);
+  border: 1px solid rgba(153, 1, 40, 0.24);
   background: #fff5f7;
-  color: var(--crimson, #d0002f);
+  color: var(--crimson, #990128);
   font-size: 0.78rem;
   font-weight: 600;
   cursor: pointer;
@@ -144,8 +144,8 @@ const SPEAKERS_CSS = `
 
 .sparc-spk-toggle:hover,
 .sparc-spk-toggle:focus-visible {
-  background: var(--crimson, #d0002f);
-  border-color: var(--crimson, #d0002f);
+  background: var(--crimson, #990128);
+  border-color: var(--crimson, #990128);
   color: #ffffff;
   outline: none;
 }

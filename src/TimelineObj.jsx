@@ -45,7 +45,7 @@ const TIMELINE_CSS = `
   font-size: clamp(0.9rem, 1.6vw, 1.02rem);
   font-weight: 700;
   line-height: 1.25;
-  color: #b90e2c;
+  color: #990128;
 }
 
 .sparc-tl__time-end {
@@ -65,7 +65,7 @@ const TIMELINE_CSS = `
 
 .sparc-tl__line {
   width: 2px;
-  background-color: rgba(200, 16, 46, 0.35);
+  background-color: rgba(153, 1, 40, 0.35);
 }
 
 .sparc-tl__line--top { height: 19px; }
@@ -81,8 +81,8 @@ const TIMELINE_CSS = `
   height: 16px;
   border-radius: 50%;
   background-color: #ffffff;
-  border: 3px solid #c8102e;
-  box-shadow: 0 0 0 4px rgba(200, 16, 46, 0.12);
+  border: 3px solid #990128;
+  box-shadow: 0 0 0 4px rgba(153, 1, 40, 0.12);
   box-sizing: border-box;
   flex-shrink: 0;
   transform: scale(0.55);
