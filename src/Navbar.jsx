@@ -45,7 +45,7 @@ export default function Navbar() {
           <SmartLink k="speakers" nav>Speakers</SmartLink>
           <SmartLink k="ambassadors" nav>Ambassadors</SmartLink>
           <CtaLink ctaKey="register" variant="text" text="Registration" />
-          <a href="#contact">Contact</a>
+          <NavLink to="/contact">Contact</NavLink>
         </nav>
       </div>
     </header>

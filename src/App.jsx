@@ -7,6 +7,7 @@ import Home from './Home';
 import Timeline from './Timeline';
 import Speakers from './Speakers';
 import Ambassadors from './Ambassadors';
+import Contact from './contact';
 import Error404 from './Error404';
 import ScrollToTop from './ScrollToTop';
 import TopScroll from './TopScroll';
@@ -22,6 +23,7 @@ const App = () => (
       <Route path="/timeline" element={<Timeline />} />
       <Route path="/speakers" element={<Speakers />} />
       <Route path="/ambassadors" element={<Ambassadors />} />
+      <Route path="/contact" element={<Contact />}/>
       <Route path="*" element={<Error404 />} />
     </Routes>
     <Footer />
